@@ -1,20 +1,14 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+// welcome page
 Route::get('/', function () {
     return view('welcome');
 });
 
+// 用戶認證
 Auth::routes();
+Route::get('/auth/facebook', 'Auth\SocialAuthController@redirect');
+Route::get('/auth/facebook/callback', 'Auth\SocialAuthController@callback');
 
+// 家
 Route::get('/home', 'HomeController@index');

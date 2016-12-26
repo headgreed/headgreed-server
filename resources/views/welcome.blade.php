@@ -44,7 +44,7 @@
                         <div class="white-background text-center">
                             <h1>立即登入貪頭寶</h1>
                             <br>
-                            <a href="{{ url('/login') }}">FaceBook</a>
+                            <a href="{{ url('/auth/facebook') }}">FaceBook</a>
                         </div>
                     </div>
                 </div>

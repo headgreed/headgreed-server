@@ -19,9 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('ori_name');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
-            $table->string('avatar');
-            $table->boolean('gender');
+            $table->string('password')->nullable();
+            $table->string('avatar')->default('default.jpg');
+            $table->string('gender')->nullable();
             $table->string('location')->nullable();
             $table->text('about')->nullable();
             $table->rememberToken();
