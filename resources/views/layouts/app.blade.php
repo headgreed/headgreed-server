@@ -45,6 +45,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                All Boards <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach ($boards as $board)
+                                    <li><a href="{{ url("/b/$board->slug") }}">{{ $board->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -56,7 +66,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <img id="avatar" src="{{ asset('self_avatar') }}">&nbsp;{{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">

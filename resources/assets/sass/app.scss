@@ -7,3 +7,9 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+#avatar {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+}

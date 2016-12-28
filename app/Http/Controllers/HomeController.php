@@ -25,4 +25,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function avatar()
+    {
+        $filename = \Auth::user()->avatar;
+        $path = storage_path() . '/app/public/avatar/' . $filename; // file path
+        $file = \File::get($path);
+        $type = \File::mimeType($path);
+        $response = \Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
+    }
 }
