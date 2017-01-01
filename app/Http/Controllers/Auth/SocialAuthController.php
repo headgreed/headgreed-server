@@ -49,7 +49,8 @@ class SocialAuthController extends Controller
                     'name' => $data->name,
                     'email' => $data->email,
                     'gender' => $data->user['gender'],
-                    'avatar' => $new_name
+                    'avatar' => $new_name,
+                    'api_token' => str_random(60)
                 ]);
             }
 

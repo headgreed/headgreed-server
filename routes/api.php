@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+// https://github.com/laravel/framework/blob/5.3/src/Illuminate/Auth/TokenGuard.php
 Route::get('/user', function (Request $request) {
+    // return Auth::guard('api')->getTokenForRequest();
     return $request->user();
 })->middleware('auth:api');
