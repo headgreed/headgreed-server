@@ -20,8 +20,8 @@ class CreatePostsTable extends Migration
             $table->integer('board_id');
             $table->string('title');
             $table->text('content');
-            $table->integer('like');
-            $table->integer('hate');
+            $table->integer('like')->default(0);
+            $table->integer('hate')->default(0);
             $table->timestamps();
         });
     }
