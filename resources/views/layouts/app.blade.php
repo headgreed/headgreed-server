@@ -20,11 +20,12 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    @yield('css')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -47,15 +48,27 @@
                         &nbsp;
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                All Boards <span class="caret"></span>
+                                我的最愛 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                @foreach ($boards as $board)
+                                {{-- @foreach ($boards as $board)
                                     <li><a href="{{ url("/b/$board->slug") }}">{{ $board->name }}</a></li>
-                                @endforeach
+                                @endforeach --}}
+                                <li><a href="http://headgreed.dev/b/ncu">NCU 中央大學</a></li>
                             </ul>
                         </li>
                     </ul>
+
+                    <div class="col-md-3">
+                        <form class="navbar-form" role="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="q">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -73,6 +86,7 @@
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
+                                                     localStorage.removeItem('token');
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
@@ -94,5 +108,6 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    @yield('js')
 </body>
 </html>

@@ -8,6 +8,13 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+// Font Awesome
+@import "node_modules/font-awesome/scss/font-awesome";
+
+body {
+    padding-top: 70px;
+}
+
 #avatar {
     width: 2em;
     height: 2em;

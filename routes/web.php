@@ -11,13 +11,16 @@ Route::get('/', function () {
 // 用戶認證
 // Auth::routes();
 // vendor/laravel/framework/src/Illuminate/Routing/Router.php
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/auth/facebook', 'Auth\SocialAuthController@redirect');
 Route::get('/auth/facebook/callback', 'Auth\SocialAuthController@callback');
 
-Route::get('/self_avatar', 'HomeController@avatar');
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-// 家
-Route::get('/home', 'HomeController@index');
+    // 家
+    Route::get('/home', 'HomeController@index');
+    Route::get('/self_avatar', 'HomeController@avatar');
 
-Route::get('/b/{slug}', 'BoardController@show');
+    Route::get('/b/{slug}', 'BoardController@show');
+
+});

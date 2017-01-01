@@ -18,3 +18,7 @@ Route::get('/user', function (Request $request) {
     // return Auth::guard('api')->getTokenForRequest();
     return $request->user();
 })->middleware('auth:api');
+
+Route::group(['middleware' => 'api'], function () {
+    Route::get('p/{slug}', 'BoardController@posts');
+});

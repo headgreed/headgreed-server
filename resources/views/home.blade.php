@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('js')
+<script type="text/javascript">
+    @if ($token)
+        localStorage.setItem('token', "{{$token}}");
+    @endif
+</script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
