@@ -15,8 +15,11 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('layouts.sidenav', function($view)
         {
-            $boards = \App\Board::all();
-            $view->with('boards', $boards);
+            $board_categories = \App\BoardCategory::all();
+            foreach ($board_categories as $b) {
+                $b->boards = $b->boards()->get();
+            }
+            $view->with('board_categories', $board_categories);
         });
     }
 
