@@ -1,14 +1,53 @@
 <template>
 <div>
     <div class="panel panel-default">
-        <div class="panel-heading">現在時間：{{ new Date() }}</div>
+        <div class="panel-heading">
+            <button class="btn btn-primary"
+                    @click="showNewPostModal=true"
+                >
+                <i class="fa fa-pencil"></i> 發文
+            </button>
+            <post-modal v-if="showNewPostModal" @close="showNewPostModal=false">
+                <span slot="header">
+                    在 {{this.bname}} 發文
+                </span>
+                <div slot="body">
+                    <div class="form-group">
+                        <label for="">標題：</label>
+                        <input type="text" v-model="title">
+                    </div>
+                    <label for="">內文：</label>
+                    <div class="form-group">
+                        <textarea name="name" rows="8" cols="80" v-model="content"></textarea>
+                    </div>
+                </div>
+                <div slot="footer">
+                    <button class="btn btn-success" @click="newPost()">
+                        <i class="fa fa-pencil"></i> 送出不後悔
+                    </button>
+                </div>
+            </post-modal>
+        </div>
         <div class="panel-body">
             <div class="list-group">
-                <a href="#" v-for="post in posts" class="list-group-item border-bottom">
+                <a href="#" class="list-group-item border-bottom"
+                    v-for="post in posts"
+                    @click="openPostModal(post)"
+                >
                     <h4>{{ post.title }}</h4>
-                    <p>{{ post.content }}</p>
                     <p>{{ post.created_at }}</p>
                 </a>
+                <post-modal v-if="showPostModal" @close="showPostModal=false">
+                    <span slot="header">
+                        {{ postModal.title }}
+                    </span>
+                    <div slot="body">
+                        {{ postModal.content }}
+                    </div>
+                    <div slot="footer">
+                        {{ postModal.created_at }}
+                    </div>
+                </post-modal>
             </div>
         </div>
     </div>
@@ -26,17 +65,34 @@
 </template>
 
 <script>
+import newPost from './PostModal.vue'
 export default {
+    components: {
+        'post-modal': newPost
+    },
     props: ['bname', 'bslug'],
     data () {
         return {
+            // display
             posts: [],
+            // infinite scroll
             page: 1,
             stopLoad: false,
-            loading: false
+            loading: false,
+            // Modal
+            showNewPostModal: false,
+            showPostModal: false,
+            postModal: '',
+            title: '',
+            content: '',
+            user_id: ''
         }
     },
     created () {
+        this.$http.get("userid")
+        .then(response => {
+            this.user_id = response.body
+        })
         this.$http.get("p/"+this.bslug)
         .then(response => {
             this.posts = response.body.data
@@ -47,6 +103,21 @@ export default {
         window.addEventListener('scroll', this.handleScroll)
     },
     methods: {
+        newPost() {
+            let data = {
+                title: this.title,
+                content: this.content,
+                user_id: this.user_id
+            }
+            this.$http.post("p/"+this.bslug, data)
+                .then(response => {
+                    location.reload()
+                })
+        },
+        openPostModal(post) {
+            this.showPostModal = true
+            this.postModal = post
+        },
         handleScroll () {
             if( $(window).scrollTop() + $(window).height() >= $(document).height()
                 && !this.stopLoad && !this.loading ) {
