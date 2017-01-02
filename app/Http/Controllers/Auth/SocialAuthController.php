@@ -27,6 +27,11 @@ class SocialAuthController extends Controller
             $user = $account->user;
         }
         else {
+            $email = $data->email;
+            if ($data->email == null) {
+                $email = $data->id . "@fb.headgreed.com.tw";
+            }
+
             $account = new SocialAccount([
                'provider' => 'facebook',
                'provider_user_id' => $data->id,
@@ -35,7 +40,7 @@ class SocialAuthController extends Controller
                'profileUrl' => $data->profileUrl
             ]);
 
-            $user = User::whereEmail($data->email)->first();
+            $user = User::whereEmail($email)->first();
 
             if (!$user) {
                 $file = file_get_contents($data->avatar);
@@ -47,7 +52,7 @@ class SocialAuthController extends Controller
                     'slug' => uniqid(),
                     'ori_name' => $data->name,
                     'name' => $data->name,
-                    'email' => $data->email,
+                    'email' => $email,
                     'gender' => $data->user['gender'],
                     'avatar' => $new_name,
                     'api_token' => str_random(60)
