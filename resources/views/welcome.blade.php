@@ -97,8 +97,14 @@
                     <div class="header-content">
                         <div class="header-content-inner">
                             <h1>Internet的本質就是溝通<br>我們將打造一個次世代的資訊交流平台</h1>
+                            <h4>網站：</h4>
                             <a href="{{ url('/auth/facebook') }}" class="btn btn-outline btn-xl page-scroll fb-blue">
                                 <i class="fa fa-facebook-square fa-2x"></i> <span class="two-em">使用Facebook登入</span>
+                            </a><br><br>
+                            <h4>行動裝置：</h4>
+                            <a href="#download" class="btn btn-outline btn-xl page-scroll">
+                                <i class="fa fa-mobile fa-2x"></i>
+                                 <span class="two-em">下載APP</span>
                             </a>
                         </div>
                     </div>
