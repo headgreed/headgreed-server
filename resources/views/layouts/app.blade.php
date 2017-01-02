@@ -54,7 +54,7 @@
                                 {{-- @foreach ($boards as $board)
                                     <li><a href="{{ url("/b/$board->slug") }}">{{ $board->name }}</a></li>
                                 @endforeach --}}
-                                <li><a href="http://headgreed.dev/b/ncu">NCU 中央大學</a></li>
+                                <li><a href="{{ url('b/ncu') }}">NCU 中央大學</a></li>
                             </ul>
                         </li>
                     </ul>
