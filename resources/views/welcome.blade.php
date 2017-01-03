@@ -35,25 +35,29 @@
     <![endif]-->
 
     <style media="screen">
-         .fb-blue {
-             background-color: #3b5998;
-         }
-         .two-em {
-             font-size: 1.35em;
-         }
-         /*githib*/
-         section.contact ul.list-social li.social-github a {
-           background-color: #333;
-         }
-         section.contact ul.list-social li.social-github a:hover {
-           background-color: #1c1c1c;
-         }
 
-         .bg-primary {
-             background: #f2b723;
-             background: -webkit-linear-gradient(#fdcc52,#fdc539);
-             background: linear-gradient(#f2b723,#4affce);
-         }
+    body {
+        font-family: '微軟正黑體', '新細明體', sans-serif !important;
+    }
+    .fb-blue {
+        background-color: #3b5998;
+    }
+    .two-em {
+        font-size: 1.35em;
+    }
+    /*githib*/
+    section.contact ul.list-social li.social-github a {
+        background-color: #333;
+    }
+    section.contact ul.list-social li.social-github a:hover {
+        background-color: #1c1c1c;
+    }
+
+    .bg-primary {
+         background: #f2b723;
+         background: -webkit-linear-gradient(#fdcc52,#fdc539);
+         background: linear-gradient(#f2b723,#4affce);
+     }
 
     </style>
 
