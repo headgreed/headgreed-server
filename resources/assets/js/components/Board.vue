@@ -14,11 +14,11 @@
                 <div slot="body">
                     <div class="form-group">
                         <label for="">標題：</label>
-                        <input type="text" v-model="title">
+                        <input class="form-control" type="text" v-model="title">
                     </div>
                     <label for="">內文：</label>
                     <div class="form-group">
-                        <textarea name="name" rows="8" cols="80" v-model="content"></textarea>
+                        <textarea class="form-control" row="8" v-model="content"></textarea>
                     </div>
                 </div>
                 <div slot="footer">
@@ -88,6 +88,14 @@ export default {
             user_id: ''
         }
     },
+    watch: {
+        showNewPostModal (check) {
+            this.modal_open(check);
+        },
+        showPostModal (check) {
+            this.modal_open(check);
+        }
+    },
     created () {
         this.$http.get("userid")
         .then(response => {
@@ -103,6 +111,13 @@ export default {
         window.addEventListener('scroll', this.handleScroll)
     },
     methods: {
+        modal_open(check) {
+            if (check) {
+                $('body').addClass('modal-open');
+            } else {
+                $('body').removeClass('modal-open');
+            }
+        },
         newPost() {
             let data = {
                 title: this.title,
