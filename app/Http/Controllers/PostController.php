@@ -11,7 +11,13 @@ class PostController extends Controller
     public function index($slug)
     {
         $board = Board::where('slug', $slug)->first();
-        $posts = $board->posts()->orderBy('created_at','desc')->paginate(20);
+        $posts = $board->posts()->with(['user' => function($q){
+            $q->select('id', 'name', 'gender');
+            // $q->select('id', 'name', 'gender')->with(['facebook' => function($q){
+            //     $q->select('user_id', 'profileUrl');
+            // }]);
+        }])
+        ->orderBy('created_at','desc')->paginate(20);
         return $posts;
     }
     public function store($slug, Request $request)
