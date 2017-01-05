@@ -23,6 +23,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/userid', function (Request $request) {
         return $request->user()->id;
     });
-    Route::get('p/{slug}', 'BoardController@posts');
-    Route::post('p/{slug}', 'BoardController@newPost');
+    Route::get('p/{slug}', 'PostController@index');
+    Route::post('p/{slug}', 'PostController@store');
 });

@@ -3,11 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Board;
+use App\Post;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index($slug)
     {
-        
+        $board = Board::where('slug', $slug)->first();
+        $posts = $board->posts()->orderBy('created_at','desc')->paginate(20);
+        return $posts;
+    }
+    public function store($slug, Request $request)
+    {
+        $board = Board::where('slug', $slug)->first();
+        $post = Post::create([
+            'slug' => uniqid(),
+            'user_id' => $request->user_id,
+            'board_id' => $board->id,
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
+        return $post;
     }
 }
