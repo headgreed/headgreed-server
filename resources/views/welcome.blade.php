@@ -202,9 +202,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="feature-item">
-                                    <i class="icon-social-github text-primary"></i>
-                                    <h3>開放原始碼</h3>
-                                    <p class="text-muted">Open Source !</p>
+                                    <i class="icon-emotsmile text-primary"></i>
+                                    <h3>友善環境</h3>
+                                    <p class="text-muted">Friendly !</p>
                                 </div>
                             </div>
                         </div>
@@ -225,8 +225,8 @@
 
     <section id="contact" class="contact bg-primary">
         <div class="container">
-            <h2>在社群上探索我們 <i class="fa fa-heart"></i></h2>
-            <p class="text-muted">Find Us</p>
+            <h2>聯絡我們 <i class="fa fa-heart"></i></h2>
+            <p class="text-muted">Contact Us</p>
             <ul class="list-inline list-social">
                 <li class="social-github">
                     <a href="https://github.com/headgreed"><i class="fa fa-github"></i></a>
