@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div slot="footer">
-                    <button class="btn btn-success" @click="newPost()">
+                    <button class="btn btn-success" @click="newPost()" :disabled="not_working">
                         <i class="fa fa-pencil"></i> 送出不後悔
                     </button>
                 </div>
@@ -85,7 +85,8 @@ export default {
             postModal: '',
             title: '',
             content: '',
-            user_id: ''
+            user_id: '',
+            not_working: true
         }
     },
     watch: {
@@ -94,6 +95,12 @@ export default {
         },
         showPostModal (check) {
             this.modal_open(check);
+        },
+        content() {
+            if(this.content.length > 0)
+                this.not_working = false
+            else
+                this.not_working = true
         }
     },
     created () {
