@@ -19,11 +19,24 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::post('facebook', 'Auth\SocialAuthController@facebook');
+Route::group(['middleware' => 'apitoken'], function () {
+    Route::get('/test', function () {
+        return 'test route';
+    });
+    Route::post('facebook', 'Auth\SocialAuthController@facebook');
+});
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/userid', function (Request $request) {
         return $request->user()->id;
     });
     Route::get('p/{slug}', 'PostController@index');
     Route::post('p/{slug}', 'PostController@store');
+});
+
+
+// 雜
+Route::get('random', function ()
+{
+    return md5(uniqid(rand(), TRUE));
 });

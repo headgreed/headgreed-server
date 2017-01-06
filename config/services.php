@@ -40,4 +40,8 @@ return [
         'client_secret' => env('FACEBOOK_SECRET'),
         'redirect' => env('FACEBOOK_URL'),
     ],
+
+    'api' => [
+        'token' => env('API_TOKEN')
+    ],
 ];
