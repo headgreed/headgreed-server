@@ -166,7 +166,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
         //
 
         /*
@@ -177,9 +178,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        // Facebook
-        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -229,7 +227,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        // Facebook
+        // Packages
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
