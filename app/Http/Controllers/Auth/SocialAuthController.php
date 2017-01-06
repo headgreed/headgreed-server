@@ -55,7 +55,7 @@ class SocialAuthController extends Controller
                     'email' => $email,
                     'gender' => $data->user['gender'],
                     'avatar' => $new_name,
-                    'api_token' => str_random(60)
+                    'api_token' => md5(uniqid(rand(), TRUE))
                 ]);
             }
 
@@ -105,7 +105,7 @@ class SocialAuthController extends Controller
                     'email' => $email,
                     'gender' => $request->gender,
                     'avatar' => $new_name,
-                    'api_token' => str_random(60)
+                    'api_token' => md5(uniqid(rand(), TRUE))
                 ]);
             }
 
