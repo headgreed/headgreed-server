@@ -72,6 +72,8 @@ class SocialAuthController extends Controller
                     'email' => $email,
                     'gender' => $gender,
                     'avatar' => $new_name,
+                    'location' => '',
+                    'about' => '',
                     'api_token' => md5(uniqid(rand(), TRUE))
                 ]);
             }
