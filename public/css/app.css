@@ -10742,4 +10742,9 @@ body {
   border-radius: 50%;
 }
 
+.border-bottom {
+  border: 0px solid #d3e0e9;
+  border-bottom: 2px solid #d3e0e9;
+}
+
 /*# sourceMappingURL=app.css.map */
