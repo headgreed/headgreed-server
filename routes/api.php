@@ -14,10 +14,10 @@ use Illuminate\Http\Request;
 */
 
 // https://github.com/laravel/framework/blob/5.3/src/Illuminate/Auth/TokenGuard.php
-Route::get('/user', function (Request $request) {
-    // return Auth::guard('api')->getTokenForRequest();
-    return $request->user();
-})->middleware('auth:api');
+// Route::get('/user', function (Request $request) {
+//     // return Auth::guard('api')->getTokenForRequest();
+//     return $request->user();
+// })->middleware('auth:api');
 
 Route::group(['middleware' => 'apitoken'], function () {
 
@@ -39,6 +39,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/userid', function (Request $request) {
         return $request->user()->id;
     });
+
+    Route::get('user', 'UserController@user');
+    Route::get('u/posts', 'UserController@posts');
+    Route::patch('user', 'UserController@update');
+
     Route::get('p/{slug}', 'PostController@index');
     Route::post('p/{slug}', 'PostController@store');
 });

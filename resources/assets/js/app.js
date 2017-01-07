@@ -17,6 +17,8 @@ Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('tok
  */
 
 Vue.component('board', require('./components/Board.vue'));
+Vue.component('user-profile', require('./components/UserProfile.vue'));
+Vue.component('user-post', require('./components/UserPost.vue'));
 
 const app = new Vue({
     el: '#app'

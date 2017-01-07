@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'slug', 'ori_name', 'name', 'email', 'password', 'gender', 'avatar', 'api_token'
+        'slug', 'ori_name', 'name', 'email', 'password', 'gender', 'avatar', 'api_token', 'about'
     ];
 
     /**
@@ -30,5 +30,10 @@ class User extends Authenticatable
     public function facebook()
     {
         return $this->hasOne(\App\SocialAccount::class)->where('provider', 'facebook');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(\App\Post::class);
     }
 }

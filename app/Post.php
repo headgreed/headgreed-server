@@ -14,4 +14,9 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');//->select(['id', 'name']); //select in controller
     }
+
+    public function board()
+    {
+        return $this->belongsTo('App\Board');
+    }
 }
