@@ -20,9 +20,18 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::group(['middleware' => 'apitoken'], function () {
+
+    // 測試區
     Route::get('/test', function () {
-        return 'test route';
+        return 'GET /test 成功';
     });
+    Route::post('/test', function (Request $request) {
+        return 'POST /test 成功';
+    });
+    Route::post('/testname', function (Request $request) {
+        return 'POST /testname ' . $request->name;
+    });
+
     Route::post('facebook', 'Auth\SocialAuthController@facebook');
 });
 
