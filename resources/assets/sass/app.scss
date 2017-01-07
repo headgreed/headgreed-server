@@ -15,8 +15,15 @@ body {
     padding-top: 70px;
 }
 
+// layout/app.blade.php
 #avatar {
     width: 2em;
     height: 2em;
     border-radius: 50%;
+}
+
+// Board.vue, UserPost.vue
+.border-bottom {
+    border: 0px solid #d3e0e9;
+    border-bottom: 2px solid #d3e0e9;
 }

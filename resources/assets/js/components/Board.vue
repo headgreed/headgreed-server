@@ -32,7 +32,7 @@
             <div class="list-group">
                 <a href="#" class="list-group-item border-bottom"
                     v-for="post in posts"
-                    @click="openPostModal(post)"
+                    @click.prevent="openPostModal(post)"
                 >
                     <h4>{{ post.title }}</h4>
                     <p>{{ post.created_at }}</p>
@@ -166,10 +166,5 @@ export default {
 </script>
 
 <style media="screen">
-.border-bottom {
-    border: 0px solid #d3e0e9;
-    border-bottom: 2px solid #d3e0e9;
-    /*padding-left: 0;
-    padding-right: 0;*/
-}
+
 </style>
