@@ -19,7 +19,10 @@
                     歡迎來到貪頭寶 <br>
                     本站採用半匿名機制 <br>
                     雖言論自由但也要注意發言 <br>
-                    IP位址都有記住的～ <br>
+                    不然會上警局的～ <br>
+                    <br>
+                    意見調查與Bug回報: 
+                    <a href="https://goo.gl/forms/2eG8qoyIOjapUsZg2" target="_blank">連結在此</a>
                 </div>
             </div>
         </div>
