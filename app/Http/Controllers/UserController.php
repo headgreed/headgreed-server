@@ -21,6 +21,8 @@ class UserController extends Controller
     {
         $user = [
             'id' => $request->user()->id,
+            'name' => $request->user()->name,
+            'about' => $request->user()->about,
         ];
         return $user;
     }
