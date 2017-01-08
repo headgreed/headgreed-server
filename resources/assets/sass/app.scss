@@ -17,6 +17,11 @@ body {
 }
 
 // layout/app.blade.php
+.nav-avatar {
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+}
 .avatar {
     width: 2em;
     height: 2em;

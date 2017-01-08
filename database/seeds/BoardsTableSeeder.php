@@ -41,7 +41,7 @@ class BoardsTableSeeder extends Seeder
                 'board_category_id' => 2
             ],
             [
-                'slug' => 'all',
+                'slug' => 'tayouan',
                 'name' => '桃園地區',
                 'rule' => str_random(500),
                 'board_category_id' => 2
@@ -85,6 +85,12 @@ class BoardsTableSeeder extends Seeder
         // many to many
         $post_category = \App\PostCategory::find(1);
         $post_category->boards()->sync([1,2,3,4]);
+        $post_category = \App\PostCategory::find(2);
+        $post_category->boards()->sync([1,2,3,4]);
+        $post_category = \App\PostCategory::find(3);
+        $post_category->boards()->sync([1,2,3]);
+        $post_category = \App\PostCategory::find(4);
+        $post_category->boards()->sync([1,2,3]);
 
         $board = \App\Board::find(1);
         $board->post_categories()->sync([1,2,3,4,5,6]);
