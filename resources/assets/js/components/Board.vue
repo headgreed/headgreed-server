@@ -62,7 +62,7 @@
                     <div slot="body">
                         <img class="avatar" :src="'/photo/'+postModal.user.avatar" alt="">
                         <span>{{ postModal.user.name }}</span>
-                        <span class="text-muted">at {{ postModal.created_at }}</span>
+                        <span class="text-muted">at {{ postModal.created_at }} from {{ postModal.ip }}</span>
                         <div class="pull-right" v-if="postModal.user.id == user.id">
                             <button class="btn btn-danger" @click="deletePost(postModal.id)">
                                 <i class="fa fa-trash-o fa-lg"></i>
@@ -79,7 +79,7 @@
                                 @keydown.enter="newComment(postModal.id)"
                             >
                         </div>
-                        <div class="text-center" v-show="loading">
+                        <div class="text-center" v-show="LoadComment">
                             <i class="fa fa-spinner fa-spin fa-2x"></i>
                         </div>
                         <div class="media" v-for="(comment, index) in comments">
@@ -88,10 +88,10 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading break-all">{{ comment.content }}</h4>
-                                <p>[B{{index+1}}] {{ comment.user.name }} at {{ comment.created_at }}</p>
+                                <p>[B{{index+1}}] {{ comment.user.name }} at {{ comment.created_at }} from {{ postModal.ip }}</p>
                             </div>
                             <div class="media-right" v-if="comment.user.id == user.id">
-                                <button class="btn btn-danger" @click="deleteComment(comment.id, index)" :disabled="loading">
+                                <button class="btn btn-danger" @click="deleteComment(comment.id, index)" :disabled="LoadComment">
                                     <i class="fa fa-trash-o fa-lg"></i>
                                 </button>
                             </div>
@@ -133,6 +133,7 @@ export default {
             page: 1,
             stopLoad: false,
             loading: false,
+            LoadComment: false,
             // Modal
             showNewPostModal: false,
             showPostModal: false,
@@ -149,6 +150,9 @@ export default {
             this.modal_open(check);
         },
         showPostModal (check) {
+            if (!check) {
+                this.comments = []
+            }
             this.modal_open(check);
         },
         title() {
@@ -201,11 +205,11 @@ export default {
         openPostModal(post) {
             this.showPostModal = true
             this.postModal = post
-            this.loading = true
+            this.LoadComment = true
             this.$http.get("comment/" + post.id)
                 .then(response => {
                     this.comments = response.body
-                    this.loading = false
+                    this.LoadComment = false
                 })
         },
         handleScroll () {
@@ -257,18 +261,23 @@ export default {
             }
         },
         deleteComment (comment_id, index) {
-            this.loading = true
+            this.LoadComment = true
             this.$http.delete("comment/"+comment_id)
                 .then(response => {
                     this.comments.splice(index, 1)
-                    this.loading = false
+                    this.LoadComment = false
                 })
         },
         deletePost (post_id) {
-            this.$http.delete("post/"+post_id)
-                .then(response => {
-                    location.reload()
-                })
+            let r = confirm("確定要刪除嗎？")
+            if (r) {
+                this.$http.delete("post/"+post_id)
+                    .then(response => {
+                        location.reload()
+                    })
+            } else {
+                console.log("刪除是很危險滴");
+            }
         }
     }
 }
