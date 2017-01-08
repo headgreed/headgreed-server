@@ -64,7 +64,7 @@
                         <span>{{ postModal.user.name }}</span>
                         <span class="text-muted">at {{ postModal.created_at }}</span>
                         <br><br>
-                        <span class="pre">{{ postModal.content }}</span>
+                        <span class="pre-wrap break-all">{{ postModal.content }}</span>
                     </div>
                     <div slot="footer" class="text-left">
                         <div class="form-group">
@@ -86,7 +86,7 @@
                                 <p>[B{{index+1}}] {{ comment.user.name }} at {{ comment.created_at }}</p>
                             </div>
                             <div class="media-left" v-if="comment.user.id == user.id">
-                                <button class="btn btn-danger" @click="deleteComment(comment.id, index)">
+                                <button class="btn btn-danger" @click="deleteComment(comment.id, index)" :disabled="loading">
                                     <i class="fa fa-trash-o fa-lg"></i>
                                 </button>
                             </div>
@@ -252,9 +252,11 @@ export default {
             }
         },
         deleteComment (comment_id, index) {
+            this.loading = true
             this.$http.delete("comment/"+comment_id)
                 .then(response => {
                     this.comments.splice(index, 1)
+                    this.loading = false
                 })
         }
     }
@@ -265,7 +267,7 @@ export default {
 .break-all {
     word-break: break-all;
 }
-.pre {
-    white-space: pre;
+.pre-wrap {
+    white-space: pre-wrap;
 }
 </style>
