@@ -40,13 +40,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('u/posts', 'UserController@posts');
     Route::patch('user', 'UserController@update');
 
-    Route::get('boards', 'BoardController@index');
     Route::get('board/{slug}', 'BoardController@getBoard');
 
     Route::get('p/{slug}', 'PostController@index');
     Route::post('p/{slug}', 'PostController@store');
 });
 
+Route::get('boards', 'BoardController@index');
 
 // 雜
 Route::get('random', function ()
