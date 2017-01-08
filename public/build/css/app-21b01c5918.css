@@ -10736,7 +10736,7 @@ body {
   padding-top: 70px;
 }
 
-#avatar {
+.avatar {
   width: 2em;
   height: 2em;
   border-radius: 50%;
