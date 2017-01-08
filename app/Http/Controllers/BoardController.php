@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\BoardCategory;
 use App\Board;
 use App\Post;
 
@@ -17,5 +18,11 @@ class BoardController extends Controller
             'board' => $board,
             // 'posts' => $posts
         ]);
+    }
+
+    public function index()
+    {
+        $boards = BoardCategory::with('boards')->get();
+        return $boards;
     }
 }

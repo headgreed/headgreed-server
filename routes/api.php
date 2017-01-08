@@ -44,6 +44,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('u/posts', 'UserController@posts');
     Route::patch('user', 'UserController@update');
 
+    Route::get('boards', 'BoardController@index');
+
     Route::get('p/{slug}', 'PostController@index');
     Route::post('p/{slug}', 'PostController@store');
 });
