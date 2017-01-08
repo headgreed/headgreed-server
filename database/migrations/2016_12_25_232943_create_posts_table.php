@@ -23,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->integer('like')->default(0);
             $table->integer('hate')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

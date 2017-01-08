@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('p/{slug}', 'PostController@index');
     Route::post('p/{slug}', 'PostController@store');
+    Route::delete('post/{id}', 'PostController@destroy');
 
     Route::get('comment/{post_id}', 'CommentController@index');
     Route::post('comment', 'CommentController@store');

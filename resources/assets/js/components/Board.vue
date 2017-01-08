@@ -63,6 +63,11 @@
                         <img class="avatar" :src="'/photo/'+postModal.user.avatar" alt="">
                         <span>{{ postModal.user.name }}</span>
                         <span class="text-muted">at {{ postModal.created_at }}</span>
+                        <div class="pull-right" v-if="postModal.user.id == user.id">
+                            <button class="btn btn-danger" @click="deletePost(postModal.id)">
+                                <i class="fa fa-trash-o fa-lg"></i>
+                            </button>
+                        </div>
                         <br><br>
                         <span class="pre-wrap break-all">{{ postModal.content }}</span>
                     </div>
@@ -85,7 +90,7 @@
                                 <h4 class="media-heading break-all">{{ comment.content }}</h4>
                                 <p>[B{{index+1}}] {{ comment.user.name }} at {{ comment.created_at }}</p>
                             </div>
-                            <div class="media-left" v-if="comment.user.id == user.id">
+                            <div class="media-right" v-if="comment.user.id == user.id">
                                 <button class="btn btn-danger" @click="deleteComment(comment.id, index)" :disabled="loading">
                                     <i class="fa fa-trash-o fa-lg"></i>
                                 </button>
@@ -257,6 +262,12 @@ export default {
                 .then(response => {
                     this.comments.splice(index, 1)
                     this.loading = false
+                })
+        },
+        deletePost (post_id) {
+            this.$http.delete("post/"+post_id)
+                .then(response => {
+                    location.reload()
                 })
         }
     }

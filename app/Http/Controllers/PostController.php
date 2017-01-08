@@ -34,4 +34,13 @@ class PostController extends Controller
         ]);
         return $post;
     }
+
+    public function destroy($id, Request $request)
+    {
+        $user = $request->user();
+        $post = Post::find($id);
+        if ($user->id == $post->user_id) {
+            $post->delete();
+        }
+    }
 }
