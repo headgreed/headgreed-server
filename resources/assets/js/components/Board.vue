@@ -7,6 +7,16 @@
                 >
                 <i class="fa fa-pencil"></i> 發文
             </button>
+            &nbsp;&nbsp;
+            <div class="btn btn-default" v-bind:class="{ 'btn-success': now_filter == 0 }"
+                @click.prevent="filteredPosts()">
+                全部
+            </div>
+            <div class="btn btn-default" v-bind:class="{ 'btn-success': category.id == now_filter }"
+                v-for="category in board.post_categories"
+                @click="filteredPosts(category.id)">
+                {{ category.name }}
+            </div>
             <post-modal v-if="showNewPostModal" @close="showNewPostModal=false">
                 <span slot="header">
                     在 {{ board.name }} 發文
@@ -39,7 +49,7 @@
         <div class="panel-body">
             <div class="list-group">
                 <a href="#" class="list-group-item border-bottom"
-                    v-for="post in posts"
+                    v-for="post in filter_posts"
                     @click.prevent="openPostModal(post)"
                 >
                     <h4>{{ '[' + post.post_category.name + '] ' + post.title + ' ' }}</h4>
@@ -51,7 +61,7 @@
                     </span>
                     <div slot="body">
                         <h5>{{ postModal.user.name }}<h5>
-                        {{ postModal.content }}
+                        <span class="pre">{{ postModal.content }}</span>
                     </div>
                     <div slot="footer">
                         {{ postModal.created_at }}
@@ -61,13 +71,12 @@
         </div>
     </div>
     <div class="text-center" v-show="loading">
-        fuck
         <i class="fa fa-spinner fa-spin fa-2x"></i>
     </div><br>
     <button class="btn btn-default btn-block"
             @click="attemptLoad(++page)"
             v-show="!stopLoad && !loading" >
-        <i class="fa fa-plus fa-2x"></i>
+        <i class="fa fa-plus"></i> 讀取更多文章
     </button>
     <p v-if="stopLoad">沒有文章了ＱＱ</p>
 </div>
@@ -85,6 +94,8 @@ export default {
             // display
             board: '',
             posts: [],
+            now_filter: 0,
+            filter_posts: [],
             // infinite scroll
             page: 1,
             stopLoad: false,
@@ -93,7 +104,7 @@ export default {
             showNewPostModal: false,
             showPostModal: false,
             postModal: '',
-            post_category: '',
+            post_category: 1,
             title: '',
             content: '',
             not_working: true
@@ -106,11 +117,11 @@ export default {
         showPostModal (check) {
             this.modal_open(check);
         },
+        title() {
+            this.check_empty()
+        },
         content() {
-            if(this.content.length > 0)
-                this.not_working = false
-            else
-                this.not_working = true
+            this.check_empty()
         }
     },
     created () {
@@ -118,16 +129,19 @@ export default {
         .then(response => {
             this.board = response.body
         })
-        this.$http.get("p/"+this.bslug)
-        .then(response => {
-            this.posts = response.body.data
-        })
+        this.attemptLoad(this.page)
     },
     mounted() {
         this.handleScroll()
         window.addEventListener('scroll', this.handleScroll)
     },
     methods: {
+        check_empty() {
+            if(this.title.length > 0 && this.content.length)
+                this.not_working = false
+            else
+                this.not_working = true
+        },
         modal_open(check) {
             if (check) {
                 $('body').addClass('modal-open');
@@ -168,13 +182,29 @@ export default {
                 for (var i = 0, len = data.length; i < len; i++) {
                     this.posts.push(data[i])
                 }
+                this.filteredPosts(this.now_filter)
+                this.loading = false
             })
-            this.loading = false
+        },
+        filteredPosts (id = 0) {
+            this.filter_posts = []
+            this.now_filter = id
+            if (id == 0) {
+                this.filter_posts = this.posts
+            } else {
+                for (let i = 0; i < this.posts.length; i++) {
+                    if (this.posts[i].post_category.id == id) {
+                        this.filter_posts.push(this.posts[i])
+                    }
+                }
+            }
         }
     }
 }
 </script>
 
-<style media="screen">
-
+<style lang="scss">
+.pre {
+    white-space: pre;
+}
 </style>
