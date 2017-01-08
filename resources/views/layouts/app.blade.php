@@ -80,7 +80,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img id="avatar" src="{{ asset('self_avatar') }}">&nbsp;{{ Auth::user()->name }} <span class="caret"></span>
+                                    <img class="avatar" src="{{ asset('self_avatar') }}">&nbsp;{{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">

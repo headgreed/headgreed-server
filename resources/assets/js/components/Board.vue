@@ -60,11 +60,37 @@
                         {{ '[' + postModal.post_category.name + '] ' + postModal.title + ' ' }}
                     </span>
                     <div slot="body">
-                        <h5>{{ postModal.user.name }}<h5>
+                        <img class="avatar" :src="'/photo/'+postModal.user.avatar" alt="">
+                        <span>{{ postModal.user.name }}</span>
+                        <span class="text-muted">at {{ postModal.created_at }}</span>
+                        <br><br>
                         <span class="pre">{{ postModal.content }}</span>
                     </div>
-                    <div slot="footer">
-                        {{ postModal.created_at }}
+                    <div slot="footer" class="text-left">
+                        <div class="form-group">
+                            <label for="comment" class="control-label">回覆：</label>
+                            <input class="form-control" type="text" id="comment" placeholder="Press Enter to post."
+                                v-model="comment"
+                                @keyup.enter="newComment(postModal.id)"
+                            >
+                        </div>
+                        <div class="text-center" v-show="loading">
+                            <i class="fa fa-spinner fa-spin fa-2x"></i>
+                        </div>
+                        <div class="media" v-for="(comment, index) in comments">
+                            <div class="media-left">
+                                <img :src="'/photo/'+comment.user.avatar" class="media-object avatar">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading break-all">{{ comment.content }}</h4>
+                                <p>[B{{index+1}}] {{ comment.user.name }} at {{ comment.created_at }}</p>
+                            </div>
+                            <div class="media-left" v-if="comment.user.id == user.id">
+                                <button class="btn btn-danger" @click="deleteComment(comment.id, index)">
+                                    <i class="fa fa-trash-o fa-lg"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </post-modal>
             </div>
@@ -92,8 +118,10 @@ export default {
     data () {
         return {
             // display
+            user: '',
             board: '',
             posts: [],
+            comments: [],
             now_filter: 0,
             filter_posts: [],
             // infinite scroll
@@ -107,7 +135,8 @@ export default {
             post_category: 1,
             title: '',
             content: '',
-            not_working: true
+            not_working: true,
+            comment: ''
         }
     },
     watch: {
@@ -128,6 +157,10 @@ export default {
         this.$http.get("board/"+this.bslug)
         .then(response => {
             this.board = response.body
+        })
+        this.$http.get("user")
+        .then(response => {
+            this.user = response.body
         })
         this.attemptLoad(this.page)
     },
@@ -163,6 +196,12 @@ export default {
         openPostModal(post) {
             this.showPostModal = true
             this.postModal = post
+            this.loading = true
+            this.$http.get("comment/" + post.id)
+                .then(response => {
+                    this.comments = response.body
+                    this.loading = false
+                })
         },
         handleScroll () {
             if( $(window).scrollTop() + $(window).height() >= $(document).height()
@@ -198,12 +237,34 @@ export default {
                     }
                 }
             }
+        },
+        newComment (post_id) {
+            if (this.comment != '' && this.comment.length > 0) {
+                let data = {
+                    post_id: post_id,
+                    content: this.comment
+                }
+                this.$http.post("comment", data)
+                    .then(response => {
+                        this.comments.push(response.body)
+                        this.comment = ''
+                    })
+            }
+        },
+        deleteComment (comment_id, index) {
+            this.$http.delete("comment/"+comment_id)
+                .then(response => {
+                    this.comments.splice(index, 1)
+                })
         }
     }
 }
 </script>
 
 <style lang="scss">
+.break-all {
+    word-break: break-all;
+}
 .pre {
     white-space: pre;
 }

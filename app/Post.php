@@ -24,4 +24,9 @@ class Post extends Model
     {
         return $this->belongsTo('App\PostCategory')->select(['id', 'name']);;
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

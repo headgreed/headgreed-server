@@ -2,7 +2,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">個人資料</div>
     <div class="panel-body">
-        <img class="avatar" src="self_avatar"><br><br>
+        <img class="profile_avatar" src="self_avatar"><br><br>
         <form class="form-horizontal" v-on:submit.prevent>
             <div class="form-group">
                 <label for="inputFile" class="col-md-2 control-label">更新個人相片</label>
@@ -104,7 +104,7 @@ export default {
 </script>
 
 <style lang="css">
-.avatar {
+.profile_avatar {
     width:10em;
     height:10em;
     border-radius:50%;

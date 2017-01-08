@@ -13,7 +13,7 @@ class PostController extends Controller
         $board = Board::where('slug', $slug)->first();
         $posts = $board->posts()->with('post_category')
         ->with(['user' => function($q) {
-            $q->select('id', 'name', 'gender');
+            $q->select('id', 'name', 'gender', 'avatar');
             // $q->select('id', 'name', 'gender')->with(['facebook' => function($q){
             //     $q->select('user_id', 'profileUrl');
             // }]);

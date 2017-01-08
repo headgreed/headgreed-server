@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     // 家
     Route::get('/home', 'HomeController@index');
     Route::get('/self_avatar', 'HomeController@avatar');
+    Route::get('photo/{file}', 'UserController@photo');
     Route::get('profile', 'UserController@profile');
 
     Route::get('/b/{slug}', 'BoardController@show');

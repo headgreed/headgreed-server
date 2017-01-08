@@ -19,7 +19,10 @@ class UserController extends Controller
 
     public function user(Request $request)
     {
-        return $request->user();
+        $user = [
+            'id' => $request->user()->id,
+        ];
+        return $user;
     }
 
     public function posts(Request $request)
@@ -42,5 +45,15 @@ class UserController extends Controller
             'about' => $request->about
         ]);
         // return $user;
+    }
+
+    public function photo($file)
+    {
+        $path = storage_path() . '/app/public/avatar/' . $file; // file path
+        $file = \File::get($path);
+        $type = \File::mimeType($path);
+        $response = \Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
     }
 }

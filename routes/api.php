@@ -44,6 +44,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('p/{slug}', 'PostController@index');
     Route::post('p/{slug}', 'PostController@store');
+
+    Route::get('comment/{post_id}', 'CommentController@index');
+    Route::post('comment', 'CommentController@store');
+    Route::delete('comment/{id}', 'CommentController@destroy');
 });
 
 Route::get('boards', 'BoardController@index');
