@@ -20,7 +20,8 @@ class CommentController extends Controller
         $post = Post::find($request->post_id);
         $comment = $post->comments()->create([
             'user_id' => $user->id,
-            'content' => $request->content
+            'content' => $request->content,
+            'ip' => $request->ip()
         ]);
         return $comment->load('user');
     }

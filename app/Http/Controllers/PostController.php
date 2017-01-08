@@ -30,7 +30,8 @@ class PostController extends Controller
             'board_id' => $board->id,
             'post_category_id' => $request->post_category ? $request->post_category : 1,
             'title' => $request->title,
-            'content' => $request->content
+            'content' => $request->content,
+            'ip' => $request->ip()
         ]);
         return $post;
     }
