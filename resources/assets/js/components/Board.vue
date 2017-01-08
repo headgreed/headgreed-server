@@ -76,7 +76,7 @@
                             <label for="comment" class="control-label">回覆：</label>
                             <input class="form-control" type="text" id="comment" placeholder="Press Enter to post."
                                 v-model="comment"
-                                @keyup.enter="newComment(postModal.id)"
+                                @keydown.enter="newComment(postModal.id)"
                             >
                         </div>
                         <div class="text-center" v-show="loading">
