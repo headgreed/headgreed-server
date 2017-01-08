@@ -8,7 +8,7 @@
             @include('layouts.sidenav')
         </div>
         <div class="col-md-10 col-md-offset-1">
-            <board bname="{{ $board->name }}" bslug="{{ $board->slug }}"></board>
+            <board bslug="{{ $board->slug }}"></board>
         </div>
     </div>
 </div>

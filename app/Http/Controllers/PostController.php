@@ -11,7 +11,8 @@ class PostController extends Controller
     public function index($slug)
     {
         $board = Board::where('slug', $slug)->first();
-        $posts = $board->posts()->with(['user' => function($q){
+        $posts = $board->posts()->with('post_category')
+        ->with(['user' => function($q) {
             $q->select('id', 'name', 'gender');
             // $q->select('id', 'name', 'gender')->with(['facebook' => function($q){
             //     $q->select('user_id', 'profileUrl');
@@ -25,8 +26,9 @@ class PostController extends Controller
         $board = Board::where('slug', $slug)->first();
         $post = Post::create([
             'slug' => uniqid(),
-            'user_id' => $request->user_id,
+            'user_id' => $request->user()->id,
             'board_id' => $board->id,
+            'post_category_id' => $request->post_category ? $request->post_category : 1,
             'title' => $request->title,
             'content' => $request->content
         ]);

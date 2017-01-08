@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'slug', 'user_id', 'board_id', 'title', 'content'
+        'slug', 'user_id', 'board_id', 'post_category_id', 'title', 'content'
     ];
 
     public function user()
@@ -18,5 +18,10 @@ class Post extends Model
     public function board()
     {
         return $this->belongsTo('App\Board');
+    }
+
+    public function post_category()
+    {
+        return $this->belongsTo('App\PostCategory')->select(['id', 'name']);;
     }
 }

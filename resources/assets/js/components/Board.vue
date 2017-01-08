@@ -9,15 +9,23 @@
             </button>
             <post-modal v-if="showNewPostModal" @close="showNewPostModal=false">
                 <span slot="header">
-                    在 {{this.bname}} 發文
+                    在 {{ board.name }} 發文
                 </span>
                 <div slot="body">
+                    <div class="form-group">
+                        <label for="category">文章分類</label>
+                        <select class="form-control" id="category" v-model="post_category">
+                              <option v-for="category in board.post_categories" :value="category.id">
+                                  {{ category.name }}
+                              </option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="">標題：</label>
                         <input class="form-control" type="text" v-model="title">
                     </div>
-                    <label for="">內文：</label>
                     <div class="form-group">
+                        <label for="">內文：</label>
                         <textarea class="form-control" row="8" v-model="content"></textarea>
                     </div>
                 </div>
@@ -34,14 +42,15 @@
                     v-for="post in posts"
                     @click.prevent="openPostModal(post)"
                 >
-                    <h4>{{ post.title }}</h4>
+                    <h4>{{ '[' + post.post_category.name + '] ' + post.title + ' ' }}</h4>
                     <p>{{ post.created_at }}</p>
                 </a>
                 <post-modal v-if="showPostModal" @close="showPostModal=false">
                     <span slot="header">
-                        {{ postModal.title }}
+                        {{ '[' + postModal.post_category.name + '] ' + postModal.title + ' ' }}
                     </span>
                     <div slot="body">
+                        <h5>{{ postModal.user.name }}<h5>
                         {{ postModal.content }}
                     </div>
                     <div slot="footer">
@@ -70,10 +79,11 @@ export default {
     components: {
         'post-modal': newPost
     },
-    props: ['bname', 'bslug'],
+    props: ['bslug'],
     data () {
         return {
             // display
+            board: '',
             posts: [],
             // infinite scroll
             page: 1,
@@ -83,9 +93,9 @@ export default {
             showNewPostModal: false,
             showPostModal: false,
             postModal: '',
+            post_category: '',
             title: '',
             content: '',
-            user_id: '',
             not_working: true
         }
     },
@@ -104,9 +114,9 @@ export default {
         }
     },
     created () {
-        this.$http.get("userid")
+        this.$http.get("board/"+this.bslug)
         .then(response => {
-            this.user_id = response.body
+            this.board = response.body
         })
         this.$http.get("p/"+this.bslug)
         .then(response => {
@@ -129,7 +139,7 @@ export default {
             let data = {
                 title: this.title,
                 content: this.content,
-                user_id: this.user_id
+                post_category: this.post_category
             }
             this.$http.post("p/"+this.bslug, data)
                 .then(response => {
