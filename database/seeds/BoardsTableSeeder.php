@@ -13,22 +13,17 @@ class BoardsTableSeeder extends Seeder
     {
         $board_categories = [
             [
-                'name' => '很多學校'
+                'name' => '大專院校'
             ],
             [
-                'name' => '現實人生'
+                'name' => '臺灣地區'
             ],
             [
                 'name' => '閒話家常'
-            ],
-            [
-                'name' => '女性話題'
-            ],
-            [
-                'name' => '成人話題'
             ]
         ];
         DB::table('board_categories')->insert($board_categories);
+
 
         $school_boards = [
             [
@@ -38,42 +33,60 @@ class BoardsTableSeeder extends Seeder
                 'board_category_id' => 1
             ]
         ];
-        $normal_boards = [
+        $area_boards = [
             [
-                'slug' => 'plan',
-                'name' => '人生規劃',
+                'slug' => 'taipei',
+                'name' => '大台北區',
                 'rule' => str_random(500),
                 'board_category_id' => 2
             ],
             [
                 'slug' => 'all',
-                'name' => '什麼都可',
+                'name' => '桃園地區',
                 'rule' => str_random(500),
-                'board_category_id' => 3
-            ],
-            [
-                'slug' => 'joke',
-                'name' => '有趣搞笑',
-                'rule' => str_random(500),
-                'board_category_id' => 3
-            ],
-            [
-                'slug' => 'makeup',
-                'name' => '美妝美妝',
-                'rule' => str_random(500),
-                'board_category_id' => 4
+                'board_category_id' => 2
             ]
         ];
-        $adult_boards = [
+        $normal_boards = [
             [
-                'slug' => 'sex',
-                'name' => '成人綜合',
+                'slug' => 'gossip',
+                'name' => '八卦新聞',
                 'rule' => str_random(500),
-                'board_category_id' => 5
+                'board_category_id' => 3
             ]
         ];
         DB::table('boards')->insert($school_boards);
+        DB::table('boards')->insert($area_boards);
         DB::table('boards')->insert($normal_boards);
-        DB::table('boards')->insert($adult_boards);
+
+
+        $post_categories = [
+            [
+                'name' => '其他'
+            ],
+            [
+                'name' => '聊天'
+            ],
+            [
+                'name' => '情報'
+            ],
+            [
+                'name' => '揪團'
+            ],
+            [
+                'name' => '選課'
+            ],
+            [
+                'name' => '打工'
+            ]
+        ];
+        DB::table('post_categories')->insert($post_categories);
+
+        // many to many
+        $post_category = \App\PostCategory::find(1);
+        $post_category->boards()->sync([1,2,3,4]);
+
+        $board = \App\Board::find(1);
+        $board->post_categories()->sync([1,2,3,4,5,6]);
     }
 }

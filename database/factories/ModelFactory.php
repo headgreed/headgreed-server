@@ -28,6 +28,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'slug' => uniqid(),
         'user_id' => 1,
         'board_id' => 1,
+        'post_category_id' => 1,
         'title' => $faker->word,
         'content' => $faker->text
     ];
