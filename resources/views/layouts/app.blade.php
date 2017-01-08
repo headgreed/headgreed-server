@@ -63,7 +63,7 @@
                     <div class="col-md-3">
                         <form class="navbar-form" role="search">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="q">
+                                <input type="text" class="form-control" placeholder="建置中..." name="q">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
@@ -78,9 +78,15 @@
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
+                            <li>
+                                <a href="{{ url('/profile') }}">
+                                    <img class="nav-avatar" src="{{ asset('self_avatar') }}">&nbsp;{{ Auth::user()->name }}</span>
+                                </a>
+                            </li>
+                            <li><a href="{{ url('/home') }}">首頁</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img class="avatar" src="{{ asset('self_avatar') }}">&nbsp;{{ Auth::user()->name }} <span class="caret"></span>
+                                    <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -90,7 +96,7 @@
                                             onclick="event.preventDefault();
                                                      localStorage.removeItem('token');
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            登出
                                         </a>
 
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
