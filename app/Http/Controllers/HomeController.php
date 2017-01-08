@@ -23,7 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', [ 'token' => \Auth::user()->api_token ]);
+        $board_categories = \App\BoardCategory::all()->load('boards');
+        return view('home', [
+            'token' => \Auth::user()->api_token,
+            'board_categories' => $board_categories
+        ]);
     }
 
 }
