@@ -88,7 +88,7 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading break-all">{{ comment.content }}</h4>
-                                <p>[B{{index+1}}] {{ comment.user.name }} at {{ comment.created_at }} from {{ postModal.ip }}</p>
+                                <p>[B{{index+1}}] {{ comment.user.name }} at {{ comment.created_at }} from {{ comment.ip }}</p>
                             </div>
                             <div class="media-right" v-if="comment.user.id == user.id">
                                 <button class="btn btn-danger" @click="deleteComment(comment.id, index)" :disabled="LoadComment">
